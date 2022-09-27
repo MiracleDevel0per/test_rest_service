@@ -1,0 +1,31 @@
+package ru.students.test_rest_students.controller;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import ru.students.test_rest_students.model.Request;
+import ru.students.test_rest_students.model.Response;
+
+import javax.validation.Valid;
+
+@RestController
+public class MyController {
+    @PostMapping(value = "/feedback")
+    public ResponseEntity<Response> feedback(@RequestBody Request request){
+
+        Response response = Response.builder()
+                .uid(request.getUid())
+                .operationUid(request.getOperationUid())
+                .systemTime(request.getSystemTime())
+                .code("success")
+                .errorCode("")
+                .errorMessage("")
+                .build();
+        if (response != null ){
+            System.out.println(response.getCode());
+        }
+        return new ResponseEntity<>(response, HttpStatus.OK);
+    }
+}
